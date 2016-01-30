@@ -26,6 +26,9 @@
             //http://stackoverflow.com/questions/4006520/using-html5-file-uploads-with-ajax-and-jquery
             //http://stackoverflow.com/questions/2320069/jquery-ajax-file-upload
 
+            //todo :
+            //Add PROGRESS BAR as GUI!
+
             $("#upload-btn").click(function () {
                 //
                 var file = document.getElementById("file-1").files[0];
@@ -53,6 +56,20 @@
                         fail: function (data) {
                             console.log('fail');
                             console.log(data);
+                        },
+                        xhr: function () {  // custom xhr
+                            myXhr = $.ajaxSettings.xhr();
+                            if (myXhr.upload) { // if upload property exists
+                                myXhr.upload.addEventListener('progress', function (e) {
+                                    //console.log(e);
+                                    //var done = e.position || e.loaded
+                                    //var total = e.totalSize || e.total;
+                                    var done = e.loaded
+                                    var total = e.total;
+                                    console.log('xhr progress: ' + Math.round(done / total * 100) + '%');
+                                }, false); // progressbar
+                            }
+                            return myXhr;
                         }
                     });
 

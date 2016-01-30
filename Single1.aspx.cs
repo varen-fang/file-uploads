@@ -15,12 +15,12 @@ public partial class FileUpload1 : System.Web.UI.Page
     }
 
     protected void btnUpload_Click(object sender, EventArgs e)
-    {
+    {        
         JavaScriptSerializer jss = new JavaScriptSerializer();
 
         if (fileupload1.HasFile)
         {
-
+            
             var outputObj = new {
                 fileName = fileupload1.FileName,
                 ext = Path.GetExtension(fileupload1.FileName),

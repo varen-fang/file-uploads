@@ -7,11 +7,7 @@ public class html_control_multi : IHttpHandler {
 
     public void ProcessRequest(HttpContext context) {
 
-        string[] names = new string[2];
-        names[0] = "file-1";
-        names[1] = "file-2";
-
-        foreach (string name in names)
+        foreach( string name in context.Request.Files.AllKeys )
         {
             HttpPostedFile file = context.Request.Files[name];
 
@@ -23,13 +19,13 @@ public class html_control_multi : IHttpHandler {
 
         context.Response.ContentType = "text/plain";
         context.Response.Write("Upload success");
-        
+
     }
 
     public bool IsReusable {
-    get {
-        return false;
+        get {
+            return false;
+        }
     }
-}
 
 }

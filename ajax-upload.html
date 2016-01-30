@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <h3>Ajax Upload</h3>
+
+    <p><input type="file" name="file-1" id="file-1" /></p>
+    <p><input type="button" value="Ajax Upload File" id="upload-btn" /></p>
+    <p>
+        <span id="message-label"></span>
+    </p>
+
+    <script>
+        $(document).ready(function () {
+
+            //refs
+            //http://abandon.ie/notebook/simple-file-uploads-using-jquery-ajax
+            //http://stackoverflow.com/questions/4006520/using-html5-file-uploads-with-ajax-and-jquery
+            //http://stackoverflow.com/questions/2320069/jquery-ajax-file-upload
+
+            $("#upload-btn").click(function () {
+                //
+                var file = document.getElementById("file-1").files[0];
+                if (file) {
+                    var fileName = file.name;
+
+                    console.log('You are uploading:');
+                    console.log(fileName);
+
+                    //Create form data
+                    var formData = new FormData();
+                    formData.append('file', file);
+
+                    $.ajax({
+                        url: "html-control-multi-handler.ashx",
+                        type: "POST",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        success: function (data) {
+                            console.log('success');
+                            console.log(data);
+                        },
+                        fail: function (data) {
+                            console.log('fail');
+                            console.log(data);
+                        }
+                    });
+
+                } else {
+                    console.log('no file');
+                }
+
+                
+                
+            });
+
+        });
+    </script>
+
+</body>
+</html>
